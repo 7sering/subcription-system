@@ -1,14 +1,31 @@
+import axios from "axios";
 import { useState } from "react";
+import second from "react";
+import toast from "react-hot-toast";
+
 import Input from "../components/Input";
 import Button from "../components/Button";
 
 const Register = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState("Kenzo Ryan");
+  const [email, setEmail] = useState("info@demo.com");
+  const [password, setPassword] = useState("kkkkkkk");
 
-  const handleClick = async () => {
-    console.log(name, email, password);
+  const handleClick = async (e) => {
+    // console.log(name, email, password);
+    try {
+      e.preventDefault();
+      const { data } = await axios.post("/register", {
+        name,
+        email,
+        password,
+      });
+      console.log(data);
+      toast.success("Registration is successful pleas login ");
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong please check again");
+    }
   };
   return (
     <>
@@ -31,12 +48,14 @@ const Register = () => {
                 value={password}
                 setValue={setPassword}
               />
-              <Button
-                handleClick={handleClick}
-                text="Register"
-                // type="danger"
-                size="sm"
-              />
+              <div className="d-grid">
+                <Button
+                  handleClick={handleClick}
+                  text="Register"
+                  // type="danger"
+                  size="sm"
+                />
+              </div>
             </div>
           </div>
           {/* <div className="row">
