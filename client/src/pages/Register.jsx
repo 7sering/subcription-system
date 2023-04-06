@@ -1,10 +1,15 @@
 import { useState } from "react";
 import Input from "../components/Input";
+import Button from "../components/Button";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleClick = async () => {
+    console.log(name, email, password);
+  };
   return (
     <>
       <div className="d-flex justify-content-center">
@@ -25,6 +30,12 @@ const Register = () => {
                 type="password"
                 value={password}
                 setValue={setPassword}
+              />
+              <Button
+                handleClick={handleClick}
+                text="Register"
+                // type="danger"
+                size="sm"
               />
             </div>
           </div>
