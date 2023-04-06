@@ -1,12 +1,23 @@
+import Navbar from "./components/Navbar"
+import Home from "./pages/Home"
+import Login from "./pages/Login"
+import Register from "./pages/Register"
+
+
+import {Routes, Route} from "react-router-dom"
 
 function App() {
 
   return (
-    <div className="container">
-     <div className="row">
-      <h1 className="text-center pt-5">Welcome to Subscription System</h1>
-     </div>
-    </div>
+   <>
+   <Navbar/>
+  <Routes>
+    <Route exact path="/" element={<Home/>}/>
+    <Route exact path="/login" element={<Login/>}/>
+    <Route exact path="/register" element={<Register/>}/>
+
+  </Routes>
+   </>
   )
 }
 
