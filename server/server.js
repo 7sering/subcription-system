@@ -1,9 +1,10 @@
-import express from "express";
-import mongoose from "mongoose";
-import cors from "cors";
-import { readdirSync } from "fs";
+const express = require("express");
+const mongoose =  require("mongoose");
+const cors = require("cors");
+const { readdirSync } = require("fs");
 
 const morgan = require("morgan");
+const { expressjwt } = require("express-jwt");
 require("dotenv").config();
 
 const app = express();
@@ -24,7 +25,10 @@ app.use(
   })
 );
 
-//Autoload Routes
+//Routes
+app.get("/api/register", (req, res) => {
+  res.send("API Requested Sand Success ........");
+});
 
 //Listen Server
 app.listen(port, () => {
