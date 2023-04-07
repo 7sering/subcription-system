@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState } from "react";
-import second from "react";
 import toast from "react-hot-toast";
 
 import Input from "../components/Input";
@@ -15,13 +14,17 @@ const Register = () => {
     // console.log(name, email, password);
     try {
       e.preventDefault();
-      const { data } = await axios.post("/register", {
+      const { data } = await axios.post("http://localhost:8000/api/register", {
         name,
         email,
         password,
       });
       console.log(data);
-      toast.success("Registration is successful pleas login ");
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        toast.success("Registration is successful pleas login ");
+      }
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong please check again");
