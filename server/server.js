@@ -1,5 +1,5 @@
 const express = require("express");
-const mongoose =  require("mongoose");
+const mongoose = require("mongoose");
 const cors = require("cors");
 const { readdirSync } = require("fs");
 
@@ -25,10 +25,8 @@ app.use(
   })
 );
 
-//Routes
-app.get("/api/register", (req, res) => {
-  res.send("API Requested Sand Success ........");
-});
+//Preload Routes
+readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
 
 //Listen Server
 app.listen(port, () => {
