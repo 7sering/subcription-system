@@ -5,10 +5,12 @@ import toast from "react-hot-toast";
 import Input from "../components/Input";
 import Button from "../components/Button";
 
+import {useNavigate} from  "react-router-dom"
 const Register = () => {
-  const [name, setName] = useState("Kenzo Ryan");
-  const [email, setEmail] = useState("info@demo.com");
-  const [password, setPassword] = useState("kkkkkkk");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
   const handleClick = async (e) => {
     // console.log(name, email, password);
@@ -23,7 +25,13 @@ const Register = () => {
       if (data.error) {
         toast.error(data.error);
       } else {
-        toast.success("Registration is successful pleas login ");
+        setName("");
+        setEmail("");
+        setPassword("");
+        toast.success(
+          `Welcome ${data.user.name} You are Registered Please Login `
+        );
+        navigate('/login')
       }
     } catch (error) {
       console.log(error);
