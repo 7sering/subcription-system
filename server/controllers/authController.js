@@ -1,8 +1,5 @@
 const User = require("../models/user");
-const {
-  comparePassword,
-  hasPassword,
-} = require("../helpers/authHelper");
+const { comparePassword, hasPassword } = require("../helpers/authHelper");
 
 exports.register = async (req, res) => {
   try {
@@ -35,7 +32,9 @@ exports.register = async (req, res) => {
       }).save();
       console.log(user);
       const { password, ...rest } = user._doc;
-      return res.json(user)
+      return res.json({
+        user: rest,
+      });
     } catch (error) {
       console.log(error);
     }
