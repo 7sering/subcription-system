@@ -26,6 +26,7 @@ const Login = () => {
       } else {
         setEmail("");
         setPassword("");
+        localStorage.setItem('auth', JSON.stringify(data))
         navigate("/");
       }
     } catch (error) {

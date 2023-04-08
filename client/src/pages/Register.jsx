@@ -31,7 +31,8 @@ const Register = () => {
         toast.success(
           `Welcome ${data.user.name} You are Registered Please Login `
         );
-        navigate('/login')
+        localStorage.setItem('auth', JSON.stringify(data))
+        navigate('/')
       }
     } catch (error) {
       console.log(error);
