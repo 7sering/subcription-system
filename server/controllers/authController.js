@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const { comparePassword, hasPassword } = require("../helpers/authHelper");
+const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
   try {
@@ -40,6 +41,39 @@ exports.register = async (req, res) => {
     }
 
     console.log(req.body);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/////////////Login
+
+exports.login = async (req, res) => {
+  try {
+    // console.log(req.body);
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.json({
+        error: "No user found",
+      });
+    }
+    //compare password
+    const match = await comparePassword(req.body.password, user.password);
+    if (!match) {
+      return res.json({
+        error: "Wrong password please check again",
+      });
+    }
+    // Token Generate
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    const { password, ...rest } = req.body;
+    res.json({
+      token,
+      user: rest,
+    });
   } catch (error) {
     console.log(error);
   }
