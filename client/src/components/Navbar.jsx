@@ -1,12 +1,17 @@
-import {Fragment} from "react"
+import { Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
 import { isAuth } from "../utils/functions";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/Context";
 
 const Navbar = () => {
+  const [state, setState] = useContext(UserContext);
   const navigate = useNavigate();
 
+  console.log("State =>", state);
+
   const logout = () => {
+    setState({ user: {}, token: "" });
     localStorage.removeItem("auth");
     navigate("/login");
   };
@@ -22,17 +27,21 @@ const Navbar = () => {
               </Link>
             </li>
 
-            {isAuth() ? (
+            {state && state.token ? (
               <Fragment>
-              <li className="nav-item">
-                  <span style={{cursor: "pointer"}} onClick={logout} className="nav-link" >
+                <li className="nav-item">
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={logout}
+                    className="nav-link"
+                  >
                     Logout
                   </span>
                 </li>
               </Fragment>
             ) : (
               <Fragment>
-              <li className="nav-item">
+                <li className="nav-item">
                   <Link className="nav-link" to="/register">
                     Register
                   </Link>

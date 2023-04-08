@@ -1,15 +1,18 @@
+import { useState, useContext } from "react";
 import axios from "axios";
-import { useState } from "react";
 import toast from "react-hot-toast";
 
 import Input from "../components/Input";
 import Button from "../components/Button";
 
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/Context";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  const [state, setState] = useContext(UserContext);
 
   const handleClick = async (e) => {
     // console.log(email, password);
@@ -26,7 +29,8 @@ const Login = () => {
       } else {
         setEmail("");
         setPassword("");
-        localStorage.setItem('auth', JSON.stringify(data))
+        setState(data)
+        localStorage.setItem("auth", JSON.stringify(data));
         navigate("/");
       }
     } catch (error) {
@@ -42,7 +46,6 @@ const Login = () => {
             <h1 className="pt-5 font-bold">Login </h1>
             <p className="lead pb-5">Access your premium content</p>
             <div className="form-group">
-            
               <Input
                 label="Email"
                 type="email"
