@@ -1,7 +1,25 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import PriceCard from "../components/cards/PriceCard";
 
 const Home = () => {
+  const [prices, setPrices] = useState([]);
+
+  const fetchPrice = async () => {
+    const { data } = await axios.get("http://localhost:8000/api/prices");
+    console.log("Prices request data", data);
+    setPrices(data);
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault()
+    console.log("Package Plan Clicked for Buy");
+  }
+
+  useEffect(() => {
+    fetchPrice();
+  }, []);
+
   return (
     <>
       <div>
@@ -56,11 +74,12 @@ const Home = () => {
         </div>
       </div>
       <div className="container">
-      <h2 className="text-center pt-5 pb-3 fw-bold">Explore The Right Plan For Your Business</h2>
+        <h2 className="text-center pt-5 pb-3 fw-bold">
+          Explore The Right Plan For Your Business
+        </h2>
         <div className="row row-col-1 pt-5 mb-3 text-center">
-          <PriceCard />
-          <PriceCard />
-          <PriceCard />
+          {prices &&
+            prices.map((price) => <PriceCard key={price.id} price={price} handleClick={handleClick} />)}
         </div>
       </div>
     </>

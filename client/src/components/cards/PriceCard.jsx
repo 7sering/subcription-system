@@ -1,33 +1,52 @@
-import React from 'react'
+import React from "react";
 
-const PriceCar = () => {
+const PriceCar = ({ price, handleSubscription}) => {
+  
+  const dynamicDescription = () => {
+    if (price.nickname === "Basic") {
+      return "5 Exclusive Stocks";
+    } else if (price.nickname === "Standard") {
+      return "25 Exclusive Stocks";
+    } else if (price.nickname === "Premium") {
+      return "50 Exclusive Stocks";
+    }
+  };
+
+ 
   return (
-  <>
-           
-          <div className="col">
-            <div className="card mb-4 rounded-3 shadow-sm">
-              <div className="card-header py-3">
-                <h4 className="my-0 fw-normal">Basic Plan</h4>
-              </div>
-
-              <div className="card-body">
-                <h1 className="card-title pricing-card-title">
-                  $50 <small className="text-muted fw-light">/mo</small>
-                </h1>
-                <ul className="list-unstyled mt-3 mb-3">
-                  <li>Exclusive Stocks</li>
-                  <li>5GB Cloud Database</li>
-                  <li>Free Premium Emails</li>
-                  <li>Free Premium Support</li>
-                  <li>Cloud AI Analytics</li>
-                </ul>
-                <button className="w-100 btn btn-lg btn-outline-danger">Sign Up</button>
-              </div>
-            </div>
+    <>
+      <div className="col">
+        <div className="card mb-4 rounded-3 shadow-sm">
+          <div className="card-header py-3">
+            <h4 className="my-0 fw-normal">{price.nickname}</h4>
           </div>
-     
-  </>
-  )
-}
 
-export default PriceCar
+          <div className="card-body">
+            <h1 className="card-title pricing-card-title">
+              {(price.unit_amount / 100).toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              })}
+              <small className="text-muted fw-light">/mo</small>
+            </h1>
+            <ul className="list-unstyled mt-3 mb-3">
+              <li className="fw-bold">{dynamicDescription()}</li>
+              <li>5GB Cloud Database</li>
+              <li>Free Premium Emails</li>
+              <li>Free Premium Support</li>
+              <li>Cloud AI Analytics</li>
+            </ul>
+            <button
+              onClick={() => handleSubscription(price)}
+              className="w-100 btn btn-lg btn-outline-danger"
+            >
+              Sign Up
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default PriceCar;
