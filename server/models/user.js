@@ -18,6 +18,9 @@ const userSchema = new mongoose.Schema({
     min: 8,
     max: 64,
   },
+  stripe_customer_id: String,
+  subscriptions: []
+  
 });
 
 const User = mongoose.model("User", userSchema);
