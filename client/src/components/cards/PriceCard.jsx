@@ -1,5 +1,5 @@
 import React from "react";
-
+import {Link} from "react-router-dom"
 const PriceCar = ({ price, handleSubscription}) => {
   
   const dynamicDescription = () => {
@@ -12,13 +12,13 @@ const PriceCar = ({ price, handleSubscription}) => {
     }
   };
 
- 
+  
   return (
     <>
       <div className="col">
         <div className="card mb-4 rounded-3 shadow-sm">
           <div className="card-header py-3">
-            <h4 className="my-0 fw-normal">{price.nickname}</h4>
+            <h4 className="my-0 fw-normal">{price.nickname} </h4>
           </div>
 
           <div className="card-body">
@@ -36,12 +36,14 @@ const PriceCar = ({ price, handleSubscription}) => {
               <li>Free Premium Support</li>
               <li>Cloud AI Analytics</li>
             </ul>
-            <button
+          <Link to="/register">
+          <button
               onClick={() => handleSubscription(price)}
               className="w-100 btn btn-lg btn-outline-danger"
             >
               Sign Up
             </button>
+          </Link>
           </div>
         </div>
       </div>
