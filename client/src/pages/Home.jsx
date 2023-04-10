@@ -1,20 +1,35 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import PriceCard from "../components/cards/PriceCard";
+import { UserContext } from "../context/Context";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const [state, setState] = useContext(UserContext);
   const [prices, setPrices] = useState([]);
+  const navigate = useNavigate();
 
   const fetchPrice = async () => {
     const { data } = await axios.get("http://localhost:8000/api/prices");
-    console.log("Prices request data", data);
+    // console.log("Prices request data", data);
     setPrices(data);
   };
 
-  const handleClick = (e) => {
-    e.preventDefault()
-    console.log("Package Plan Clicked for Buy");
-  }
+  const handleClick = async (e, price) => {
+    e.preventDefault();
+    console.log("Plan Clicked", price.id);
+    if (state && state.token) {
+      const { data } = await axios.post(
+        "http://localhost:8000/api/create-subscription",
+        {
+          priceId: price.id,
+        }
+      );
+      window.open(data);
+    } else {
+      navigate("/register");
+    }
+  };
 
   useEffect(() => {
     fetchPrice();
@@ -79,7 +94,13 @@ const Home = () => {
         </h2>
         <div className="row row-col-1 pt-5 mb-3 text-center">
           {prices &&
-            prices.map((price) => <PriceCard key={price.id} price={price} handleClick={handleClick} />)}
+            prices.map((price) => (
+              <PriceCard
+                key={price.id}
+                price={price}
+                handleSubscription={handleClick}
+              />
+            ))}
         </div>
       </div>
     </>

@@ -1,7 +1,10 @@
-import React from "react";
-import {Link} from "react-router-dom"
-const PriceCar = ({ price, handleSubscription}) => {
-  
+import {useContext} from "react";
+import { Link } from "react-router-dom";
+
+import { UserContext } from "../../context/Context";
+
+const PriceCard = ({ price, handleSubscription }) => {
+  const [state, setState] = useContext(UserContext)
   const dynamicDescription = () => {
     if (price.nickname === "Basic") {
       return "5 Exclusive Stocks";
@@ -12,7 +15,10 @@ const PriceCar = ({ price, handleSubscription}) => {
     }
   };
 
-  
+  const buttonText = () => {
+    return state && state.token ? "Buy Plan " : "Sign Up"
+  };
+
   return (
     <>
       <div className="col">
@@ -36,14 +42,14 @@ const PriceCar = ({ price, handleSubscription}) => {
               <li>Free Premium Support</li>
               <li>Cloud AI Analytics</li>
             </ul>
-          <Link to="/register">
-          <button
-              onClick={() => handleSubscription(price)}
-              className="w-100 btn btn-lg btn-outline-danger"
-            >
-              Sign Up
-            </button>
-          </Link>
+            <Link to="/register">
+              <button
+                onClick={(e) =>handleSubscription(e,price)}
+                className="w-100 btn btn-lg btn-outline-danger"
+              >
+                {buttonText()}
+              </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -51,4 +57,4 @@ const PriceCar = ({ price, handleSubscription}) => {
   );
 };
 
-export default PriceCar;
+export default PriceCard;
