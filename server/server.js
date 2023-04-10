@@ -1,14 +1,13 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const { readdirSync } = require("fs");
 
 const morgan = require("morgan");
-const { expressjwt } = require("express-jwt");
-require("dotenv").config();
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 
 //Database Connection
 main().catch((err) => console.log(err));

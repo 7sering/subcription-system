@@ -5,3 +5,7 @@ exports.prices = async(req, res) => {
     // console.log("prices", prices);
     res.json(prices.data.reverse())
 }
+
+exports.createSubscription = async(req, res) => {
+   console.log(req.body);
+}
