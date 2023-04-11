@@ -23,11 +23,12 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
-
+        {/* Protected Route Only for logged in user  */}
         <Route element={<AuthRoute />}>
           <Route exact path="/stripe/success" element={<StripeSuccess />} />
           <Route exact path="/stripe/cancel" element={<StripeCancel />} />
         </Route>
+        {/* Protected Route Only for logged in user  */}
       </Routes>
     </>
   );
