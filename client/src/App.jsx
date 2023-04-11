@@ -8,6 +8,8 @@ import { Toaster } from "react-hot-toast";
 import { Routes, Route } from "react-router-dom";
 import StripeSuccess from "./pages/StripeSuccess";
 import StripeCancel from "./pages/StripeCancel";
+import Account from "./pages/Account";
+
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
         <Route element={<AuthRoute />}>
           <Route exact path="/stripe/success" element={<StripeSuccess />} />
           <Route exact path="/stripe/cancel" element={<StripeCancel />} />
+          <Route exact path="/account" element={<Account />} />
         </Route>
         {/* Protected Route Only for logged in user  */}
       </Routes>
