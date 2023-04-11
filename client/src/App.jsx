@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import AuthRoute from "./components/routes/AuthRoute";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { Toaster } from "react-hot-toast";
@@ -22,8 +23,11 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
-        <Route exact path="/stripe/success" element={<StripeSuccess />} />
-        <Route exact path="/stripe/cancel" element={<StripeCancel />} />
+
+        <Route element={<AuthRoute />}>
+          <Route exact path="/stripe/success" element={<StripeSuccess />} />
+          <Route exact path="/stripe/cancel" element={<StripeCancel />} />
+        </Route>
       </Routes>
     </>
   );
