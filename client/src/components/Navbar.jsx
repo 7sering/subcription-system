@@ -30,6 +30,11 @@ const Navbar = () => {
             {state && state.token ? (
               <Fragment>
                 <li className="nav-item">
+                  <Link className="nav-link" to="/account">
+                    Account
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <span
                     style={{ cursor: "pointer" }}
                     onClick={logout}
