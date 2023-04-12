@@ -37,7 +37,7 @@ exports.createSubscription = async (req, res) => {
 //Subscription Status
 exports.subscriptionStatus = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.auth._id);
 
     const subscriptions = await stripe.subscriptions.list({
       customer: user.stripe_customer_id,
@@ -55,6 +55,23 @@ exports.subscriptionStatus = async (req, res) => {
       }
     );
     res.json(updated);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Subscriptions
+exports.subscriptions = async (req, res) => {
+  try {
+    const user = await User.findById(req.auth._id);
+
+    const subscriptions = await stripe.subscriptions.list({
+      customer: user.stripe_customer_id,
+      status: "all",
+      expand: ["data.default_payment_method"],
+    });
+
+    res.json(subscriptions);
   } catch (error) {
     console.log(error);
   }
