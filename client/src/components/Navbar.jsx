@@ -28,22 +28,28 @@ const Navbar = () => {
             </li>
 
             {state && state.token ? (
-              <Fragment>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/account">
-                    Account
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <span
-                    style={{ cursor: "pointer" }}
-                    onClick={logout}
-                    className="nav-link"
+              <>
+                <div className="nav-item dropdown">
+                  <li
+                    className="nav-link dropdown-toggle"
+                    data-bs-toggle="dropdown" style={{cursor: "pointer"}}
                   >
-                    Logout
-                  </span>
-                </li>
-              </Fragment>
+                    {state.user.email}
+                  </li>
+                  <ul className="dropdown-menu">
+                    <li className="nav-item dropdown-item">
+                      <Link className="nav-link" to="/account">
+                        Account
+                      </Link>
+                    </li>
+                    <li className="nav-item dropdown-item">
+                      <Link className="nav-link" onClick={logout} to="/login">
+                        Logout
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </>
             ) : (
               <Fragment>
                 <li className="nav-item">
