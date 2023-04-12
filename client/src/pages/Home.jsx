@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const [state, setState] = useContext(UserContext);
   const [prices, setPrices] = useState([]);
+  const [userSubscriptions, setUserSubscriptions] = useState([]);
   const navigate = useNavigate();
 
   const fetchPrice = async () => {
@@ -17,6 +18,10 @@ const Home = () => {
 
   const handleClick = async (e, price) => {
     e.preventDefault();
+    if (userSubscriptions && userSubscriptions.includes(price.id)) {
+      navigate(`/${price.nickname.toLowerCase()}`);
+      return;
+    }
     // console.log("Plan Clicked", price.id);
     if (state && state.token) {
       const { data } = await axios.post(
@@ -34,6 +39,21 @@ const Home = () => {
   useEffect(() => {
     fetchPrice();
   }, []);
+
+  /// User Subscription Id fetched
+  useEffect(() => {
+    let result = [];
+    const check = () =>
+      state &&
+      state.user &&
+      state.user.subscriptions &&
+      state.user.subscriptions.map((sub) => {
+        result.push(sub.plan.id);
+      });
+    console.log(result);
+    check();
+    setUserSubscriptions(result);
+  }, [state && state.user]);
 
   return (
     <>
@@ -99,6 +119,7 @@ const Home = () => {
                 key={price.id}
                 price={price}
                 handleSubscription={handleClick}
+                userSubscriptions={userSubscriptions}
               />
             ))}
         </div>

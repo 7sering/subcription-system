@@ -3,11 +3,13 @@ import { UserOutlined } from "@ant-design/icons";
 import axios from "axios";
 
 import moment from "moment"
+import {useNavigate} from "react-router-dom"
 
 import { UserContext } from "../context/Context";
 const Account = () => {
   const [state, setState] = useContext(UserContext);
   const [subscriptions, setSubscriptions] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const getSubscriptions = async () => {
@@ -42,7 +44,7 @@ const Account = () => {
               <p>Card:...{subs.default_payment_method.card.last4}</p>
               <p>Subscription End: {moment(subs.current_period_end * 1000).format("dddd, MMMM Do YYYY h:mm:ss a").toString()} </p>
 
-              <button className="btn btn-outline-primary">Access</button> {" "}
+              <button onClick={()=>  navigate(`/${subs.plan.nickname.toLowerCase()}`)} className="btn btn-outline-primary">Access</button> {" "}
               <button className="btn btn-outline-success">Manage Subscription</button>
             </section>
           </div>

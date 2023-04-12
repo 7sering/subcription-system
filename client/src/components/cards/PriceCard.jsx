@@ -1,10 +1,10 @@
-import {useContext} from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { UserContext } from "../../context/Context";
 
-const PriceCard = ({ price, handleSubscription }) => {
-  const [state, setState] = useContext(UserContext)
+const PriceCard = ({ price, handleSubscription, userSubscriptions }) => {
+  const [state, setState] = useContext(UserContext);
   const dynamicDescription = () => {
     if (price.nickname === "Basic") {
       return "5 Exclusive Stocks";
@@ -16,7 +16,7 @@ const PriceCard = ({ price, handleSubscription }) => {
   };
 
   const buttonText = () => {
-    return state && state.token ? "Buy Plan " : "Sign Up"
+    return state && state.token ? "Buy Plan " : "Sign Up";
   };
 
   return (
@@ -44,10 +44,12 @@ const PriceCard = ({ price, handleSubscription }) => {
             </ul>
             <Link to="/register">
               <button
-                onClick={(e) =>handleSubscription(e,price)}
+                onClick={(e) => handleSubscription(e, price)}
                 className="w-100 btn btn-lg btn-outline-danger"
               >
-                {buttonText()}
+                {userSubscriptions && userSubscriptions.includes(price.id)
+                  ? "Access Plan"
+                  : buttonText()}
               </button>
             </Link>
           </div>
