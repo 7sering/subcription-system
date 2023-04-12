@@ -9,6 +9,11 @@ import { Routes, Route } from "react-router-dom";
 import StripeSuccess from "./pages/StripeSuccess";
 import StripeCancel from "./pages/StripeCancel";
 import Account from "./pages/Account";
+import Basic from "./pages/Basic";
+import Standard from "./pages/Standard";
+import Premium from "./pages/Premium";
+
+
 
 
 function App() {
@@ -30,6 +35,9 @@ function App() {
           <Route exact path="/stripe/success" element={<StripeSuccess />} />
           <Route exact path="/stripe/cancel" element={<StripeCancel />} />
           <Route exact path="/account" element={<Account />} />
+          <Route exact path="/basic" element={<Basic />} />
+          <Route exact path="/standard" element={<Standard />} />
+          <Route exact path="/premium" element={<Premium />} />
         </Route>
         {/* Protected Route Only for logged in user  */}
       </Routes>
