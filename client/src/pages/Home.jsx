@@ -17,7 +17,7 @@ const Home = () => {
 
   const handleClick = async (e, price) => {
     e.preventDefault();
-    console.log("Plan Clicked", price.id);
+    // console.log("Plan Clicked", price.id);
     if (state && state.token) {
       const { data } = await axios.post(
         "http://localhost:8000/api/create-subscription",
