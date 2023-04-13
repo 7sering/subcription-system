@@ -50,9 +50,7 @@ exports.subscriptionStatus = async (req, res) => {
       {
         subscriptions: subscriptions.data,
       },
-      {
-        new: true,
-      }
+      { new: true}
     );
     res.json(updated);
   } catch (error) {
@@ -77,6 +75,7 @@ exports.subscriptions = async (req, res) => {
   }
 };
 
+//Customer Mange Portal 
 exports.customerPortal = async (req, res) => {
   try {
     const user = await User.findById(req.auth._id);
