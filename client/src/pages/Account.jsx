@@ -19,8 +19,13 @@ const Account = () => {
       console.log("subscription >", data);
       setSubscriptions(data.data);
     };
-    if (state && state.token) getSubscriptions();
+    if(state && state.token) getSubscriptions();
   }, [state && state.token]);
+
+  const mangeSubscriptions = async() => {
+    const {data} = await axios.get("http://localhost:8000/api/customer-portal")
+    window.open(data)
+  }
   return (
     <div className="container">
       <div className="row">
@@ -45,7 +50,7 @@ const Account = () => {
               <p>Subscription End: {moment(subs.current_period_end * 1000).format("dddd, MMMM Do YYYY h:mm:ss a").toString()} </p>
 
               <button onClick={()=>  navigate(`/${subs.plan.nickname.toLowerCase()}`)} className="btn btn-outline-primary">Access</button> {" "}
-              <button className="btn btn-outline-success">Manage Subscription</button>
+              <button onClick={mangeSubscriptions} className="btn btn-outline-success">Manage Subscription</button>
             </section>
           </div>
         ))}

@@ -31,7 +31,7 @@ const Login = () => {
         setPassword("");
         setState(data)
         localStorage.setItem("auth", JSON.stringify(data));
-        navigate("/");
+        navigate("/account");
       }
     } catch (error) {
       console.log(error);

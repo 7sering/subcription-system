@@ -19,12 +19,12 @@ const StripeSuccess = () => {
         //Update user in local Storage
         const auth = JSON.parse(localStorage.getItem("auth"));
         auth.user = data;
-        localStorage.setItem("auth", JSON.stringify(auth));
+        localStorage.setItem("auth", JSON.stringify(data));
         // Update user in context
-        setState(auth)
+        setState(auth);
         setTimeout(() => {
           navigate("/account");
-        }, 1000)
+        }, 1000);
       }
     };
 
